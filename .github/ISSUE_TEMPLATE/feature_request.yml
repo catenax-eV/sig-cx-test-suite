@@ -15,6 +15,26 @@ body:
         Thanks for helping us improve the CX Test Suite!
         Please describe your idea and the problem it solves.
 
+  # Each option is applied as a "feature: <option>" label by .github/workflows/label-feature.yml
+  - type: dropdown
+    id: feature
+    attributes:
+      label: Related feature
+      description: Which part of the Test Suite does your request relate to?
+      options:
+        - Use Case Conformity Assessment
+        - TCK Executions
+        - TCK Management
+        - Assessment Management
+        - TestLab IDE
+        - Catena-X Sandboxes
+        - Home & navigation
+        - Account & organization
+        - Documentation
+        - Other / not sure
+    validations:
+      required: true
+
   - type: textarea
     id: problem
     attributes:

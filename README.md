@@ -31,6 +31,7 @@ You will be asked for:
 
 | Field | Required | Description |
 |---|:---:|---|
+| Affected feature | ✅ | The part of the Test Suite you are having problems with |
 | Bug description | ✅ | What went wrong |
 | Steps to reproduce | ✅ | How we can trigger the problem ourselves |
 | Expected / actual behavior | ✅ | What should have happened and what happened instead |
@@ -41,7 +42,7 @@ You will be asked for:
 | Logs or payloads | | Pasted as text, shown as a code block |
 | Screenshots | | Images showing the problem |
 
-Bug reports get the issue type **Bug** and the `bug` label.
+Bug reports get the issue type **Bug**, the `bug` label and a `feature: <name>` label for the selected feature.
 
 ### ✨ Request a feature
 
@@ -51,6 +52,7 @@ You will be asked for:
 
 | Field | Required | Description |
 |---|:---:|---|
+| Related feature | ✅ | The part of the Test Suite your request relates to |
 | Problem statement | ✅ | The problem or need behind the request |
 | Proposed solution | ✅ | What you would like to happen |
 | Area | ✅ | New test case, existing test case, reporting, usability, documentation or other |
@@ -58,7 +60,7 @@ You will be asked for:
 | Alternatives considered | | Workarounds or other options you thought about |
 | Screenshots or mockups | | Images that illustrate the idea |
 
-Feature requests get the issue type **Feature** and the `enhancement` label.
+Feature requests get the issue type **Feature**, the `enhancement` label and a `feature: <name>` label for the selected feature.
 
 ### Adding screenshots
 
