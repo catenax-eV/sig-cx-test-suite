@@ -11,6 +11,10 @@ permissions:
   issues: write
   pull-requests: write
 
+env:
+  # Team mentioned in addition to the code owners (teams cannot be assigned)
+  MAINTAINERS_TEAM: catenax-eV/cx-team-test-suite-maintainer
+
 jobs:
   notify:
     runs-on: ubuntu-latest
@@ -48,8 +52,8 @@ jobs:
               assignees: owners,
             });
 
-            // Mention the code owners so they get notified
-            const mentions = owners.map((o) => `@${o}`).join(' ');
+            // Mention the code owners and the maintainers team so they get notified
+            const mentions = [...owners, process.env.MAINTAINERS_TEAM].map((o) => `@${o}`).join(' ');
             await github.rest.issues.createComment({
               ...context.repo,
               issue_number: number,
