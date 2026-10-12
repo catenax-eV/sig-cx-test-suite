@@ -1,0 +1,64 @@
+name: Label affected feature
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  issues: write
+
+env:
+  LABEL_PREFIX: 'feature: '
+  LABEL_COLOR: '0e8a16'
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Apply label for the selected feature
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prefix = process.env.LABEL_PREFIX;
+            const issue = context.payload.issue;
+
+            // Issue forms render each field as "### <label>\n\n<value>"
+            const match = (issue.body || '').match(
+              /^###\s+(?:Affected|Related) feature\s*\n+([^\n]+)/m
+            );
+            const value = match ? match[1].trim() : '';
+            const wanted =
+              value && value !== '_No response_' && value !== 'Other / not sure'
+                ? `${prefix}${value}`
+                : null;
+
+            // Remove feature labels that no longer match (e.g. after the issue was edited)
+            for (const { name } of issue.labels) {
+              if (name.startsWith(prefix) && name !== wanted) {
+                await github.rest.issues.removeLabel({
+                  ...context.repo,
+                  issue_number: issue.number,
+                  name,
+                });
+              }
+            }
+
+            if (!wanted || issue.labels.some((l) => l.name === wanted)) return;
+
+            // Create the label on first use so it gets a consistent colour
+            try {
+              await github.rest.issues.createLabel({
+                ...context.repo,
+                name: wanted,
+                color: process.env.LABEL_COLOR,
+                description: `Issues about the ${value} feature`,
+              });
+            } catch (error) {
+              if (error.status !== 422) throw error; // 422 = label already exists
+            }
+
+            await github.rest.issues.addLabels({
+              ...context.repo,
+              issue_number: issue.number,
+              labels: [wanted],
+            });

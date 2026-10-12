@@ -15,6 +15,26 @@ body:
         Thanks for taking the time to report a bug in the CX Test Suite!
         Please fill in as much detail as possible so we can reproduce and fix the issue quickly.
 
+  # Each option is applied as a "feature: <option>" label by .github/workflows/label-feature.yml
+  - type: dropdown
+    id: feature
+    attributes:
+      label: Affected feature
+      description: Which part of the Test Suite are you having problems with?
+      options:
+        - Use Case Conformity Assessment
+        - TCK Executions
+        - TCK Management
+        - Assessment Management
+        - TestLab IDE
+        - Catena-X Sandboxes
+        - Home & navigation
+        - Account & organization
+        - Documentation
+        - Other / not sure
+    validations:
+      required: true
+
   - type: textarea
     id: description
     attributes:
