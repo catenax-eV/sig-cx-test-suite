@@ -31,6 +31,7 @@ body:
         - Home & navigation
         - Account & organization
         - Documentation
+        - New Feature
         - Other / not sure
     validations:
       required: true
