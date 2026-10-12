@@ -31,6 +31,7 @@ body:
         - Home & navigation
         - Account & organization
         - Documentation
+        - Infrastructure
         - Other / not sure
     validations:
       required: true
@@ -65,14 +66,6 @@ body:
     validations:
       required: true
 
-  - type: textarea
-    id: actual
-    attributes:
-      label: Actual behavior
-      description: What actually happened?
-    validations:
-      required: true
-
   - type: dropdown
     id: phase
     attributes:
@@ -81,6 +74,7 @@ body:
       options:
         - Beta testing
         - Go-live operations
+        - Production
         - Other
     validations:
       required: true
