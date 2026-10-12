@@ -4,6 +4,8 @@ title: "[Bug]: "
 labels: ["bug", "triage"]
 assignees:
   - matbmoser
+  - MonikaJacobsen
+  - axkluge
 body:
   - type: markdown
     attributes:
