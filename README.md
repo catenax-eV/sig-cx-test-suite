@@ -1,4 +1,4 @@
-# SIG CX Test Suite
+# Special Interest Group (SIG) Catena-X Test Suite
 
 Central place to report **bugs** and request **features** for the **Catena-X Test Suite** during its beta testing phase and go-live operations.
 
