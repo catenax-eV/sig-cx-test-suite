@@ -2,6 +2,7 @@ name: 🐞 Bug Report
 description: Report a problem found in the CX Test Suite (go-live operations or beta testing).
 title: "[Bug]: "
 labels: ["bug", "triage"]
+type: Bug
 assignees:
   - matbmoser
   - MonikaJacobsen
@@ -77,12 +78,23 @@ body:
     validations:
       required: true
 
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      description: In which environment did the bug occur?
+      options:
+        - PROD
+        - DEV
+    validations:
+      required: true
+
   - type: input
     id: version
     attributes:
-      label: Test Suite version / environment
-      description: Version, release or environment (e.g. INT, PRE-PROD, PROD) where the bug occurred.
-      placeholder: e.g. v1.2.0 on INT
+      label: Test Suite version
+      description: Version or release where the bug occurred, if known.
+      placeholder: e.g. v1.2.0
 
   - type: textarea
     id: logs

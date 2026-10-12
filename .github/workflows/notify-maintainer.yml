@@ -1,4 +1,4 @@
-name: Notify maintainer
+name: Notify code owners
 
 on:
   issues:
@@ -7,35 +7,55 @@ on:
     types: [opened]
 
 permissions:
+  contents: read
   issues: write
   pull-requests: write
 
 env:
-  MAINTAINER: matbmoser
+  # Team mentioned in addition to the code owners (teams cannot be assigned)
+  MAINTAINERS_TEAM: catenax-eV/cx-team-test-suite-maintainer
 
 jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      - name: Assign and mention maintainer
+      - name: Assign and mention code owners
         uses: actions/github-script@v7
         with:
           script: |
-            const maintainer = process.env.MAINTAINER;
+            // Read the default owners (the `*` rule) from CODEOWNERS on the default branch
+            const { data: file } = await github.rest.repos.getContent({
+              ...context.repo,
+              path: '.github/CODEOWNERS',
+            });
+            const rule = Buffer.from(file.content, 'base64').toString('utf8')
+              .split('\n')
+              .map((line) => line.trim())
+              .filter((line) => line.startsWith('* '))
+              .pop();
+            const owners = rule
+              ? rule.split(/\s+/).slice(1).filter((o) => o.startsWith('@')).map((o) => o.slice(1))
+              : [];
+            if (owners.length === 0) {
+              core.warning('No default owners found in .github/CODEOWNERS');
+              return;
+            }
+
             const item = context.payload.issue || context.payload.pull_request;
             const number = item.number;
             const kind = context.payload.issue ? 'issue' : 'pull request';
 
-            // Assign the maintainer (no-op if already assigned via the template)
+            // Assign the code owners (no-op for those already assigned via the template)
             await github.rest.issues.addAssignees({
               ...context.repo,
               issue_number: number,
-              assignees: [maintainer],
+              assignees: owners,
             });
 
-            // Mention the maintainer so they get notified
+            // Mention the code owners and the maintainers team so they get notified
+            const mentions = [...owners, process.env.MAINTAINERS_TEAM].map((o) => `@${o}`).join(' ');
             await github.rest.issues.createComment({
               ...context.repo,
               issue_number: number,
-              body: `👋 @${maintainer}, a new ${kind} was opened by @${item.user.login}. Please take a look.`,
+              body: `👋 ${mentions}: code owners assigned, please review this new ${kind} opened by @${item.user.login}.`,
             });
