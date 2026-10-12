@@ -1,5 +1,3 @@
-# Default owner for everything in the repo; auto-requested as reviewer on PRs
-* @matbmoser
-* @MonikaJacobsen
-* @axkluge
-* @stephanbcbauer
+# Default owners for everything in the repo; auto-requested as reviewers on PRs.
+# All owners must be on one line: for each path, only the last matching line applies.
+* @matbmoser @MonikaJacobsen @axkluge @stephanbcbauer
