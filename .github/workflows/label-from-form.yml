@@ -1,0 +1,77 @@
+name: Label from issue form
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  issues: write
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Apply labels for the selected dropdown values
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Dropdown fields (by their form label) that are turned into "<prefix><value>" labels.
+            // Parenthesised explanations are dropped, e.g. "Critical (blocker, no workaround)" -> "severity: Critical".
+            const FIELDS = [
+              { headings: ['Affected feature', 'Related feature'], prefix: 'feature: ', color: '0e8a16' },
+              { headings: ['Severity'], prefix: 'severity: ', color: 'b60205' },
+              { headings: ['Priority'], prefix: 'priority: ', color: 'd93f0b' },
+              { headings: ['Environment'], prefix: 'env: ', color: '1d76db' },
+              { headings: ['Phase'], prefix: 'phase: ', color: '5319e7' },
+              { headings: ['Area'], prefix: 'area: ', color: 'fbca04' },
+            ];
+            // Values that should not produce a label
+            const SKIP = new Set(['', '_No response_', 'Other', 'Other / not sure', 'Not environment specific']);
+
+            const issue = context.payload.issue;
+            const body = issue.body || '';
+            const current = issue.labels.map((l) => l.name);
+            const escape = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+            const toAdd = [];
+            const toRemove = [];
+
+            for (const field of FIELDS) {
+              // Issue forms render each field as "### <label>\n\n<value>"
+              const heading = field.headings.map(escape).join('|');
+              const match = body.match(new RegExp(`^###\\s+(?:${heading})\\s*\\n+([^\\n]+)`, 'm'));
+              const value = match ? match[1].replace(/\s*\(.*\)\s*$/, '').trim() : '';
+              const wanted = SKIP.has(value) ? null : `${field.prefix}${value}`;
+
+              // Remove labels of this field that no longer match (e.g. after the issue was edited)
+              toRemove.push(...current.filter((name) => name.startsWith(field.prefix) && name !== wanted));
+
+              if (wanted && !current.includes(wanted)) {
+                toAdd.push({ name: wanted, color: field.color });
+              }
+            }
+
+            for (const name of toRemove) {
+              await github.rest.issues.removeLabel({ ...context.repo, issue_number: issue.number, name });
+            }
+
+            if (toAdd.length === 0) return;
+
+            // Create labels on first use so each field gets a consistent colour
+            for (const label of toAdd) {
+              try {
+                await github.rest.issues.createLabel({
+                  ...context.repo,
+                  name: label.name,
+                  color: label.color,
+                });
+              } catch (error) {
+                if (error.status !== 422) throw error; // 422 = label already exists
+              }
+            }
+
+            await github.rest.issues.addLabels({
+              ...context.repo,
+              issue_number: issue.number,
+              labels: toAdd.map((l) => l.name),
+            });
