@@ -1,0 +1,79 @@
+name: ❓ Question
+description: Ask a question about using the CX Test Suite.
+title: "[Question]: "
+labels: ["question", "triage"]
+assignees:
+  - matbmoser
+  - MonikaJacobsen
+  - axkluge
+  - stephanbcbauer
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question about the CX Test Suite? Ask it here and the team will get back to you.
+        If something is broken, please use the **Bug Report** template instead.
+
+  # Dropdown values are applied as labels by .github/workflows/label-from-form.yml
+  - type: dropdown
+    id: feature
+    attributes:
+      label: Related feature
+      description: Which part of the Test Suite is your question about?
+      options:
+        - Use Case Conformity Assessment
+        - TCK Executions
+        - TCK Management
+        - Assessment Management
+        - TestLab IDE
+        - Catena-X Sandboxes
+        - Home & navigation
+        - Account & organization
+        - Documentation
+        - Other / not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: What would you like to know?
+      placeholder: How can I ...?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What are you trying to achieve, and what have you already tried or read?
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      description: Which environment does your question relate to, if any?
+      options:
+        - PROD
+        - DEV
+        - Not environment specific
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: |
+        Upload screenshots by dragging & dropping, pasting from the clipboard, or clicking the attach button at the bottom of this field.
+        **Make sure no sensitive data is visible!**
+      placeholder: Drag & drop or paste images here, and describe what they show.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched the existing issues and the documentation and could not find an answer.
+          required: true
+        - label: I removed all sensitive data (tokens, credentials, personal data) from this question.
+          required: true

@@ -15,7 +15,7 @@ body:
         Thanks for helping us improve the CX Test Suite!
         Please describe your idea and the problem it solves.
 
-  # Each option is applied as a "feature: <option>" label by .github/workflows/label-feature.yml
+  # Dropdown values are applied as labels by .github/workflows/label-from-form.yml
   - type: dropdown
     id: feature
     attributes:
@@ -31,6 +31,7 @@ body:
         - Home & navigation
         - Account & organization
         - Documentation
+        - New Feature
         - Other / not sure
     validations:
       required: true

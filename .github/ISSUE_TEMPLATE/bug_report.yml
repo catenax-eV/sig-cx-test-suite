@@ -15,7 +15,7 @@ body:
         Thanks for taking the time to report a bug in the CX Test Suite!
         Please fill in as much detail as possible so we can reproduce and fix the issue quickly.
 
-  # Each option is applied as a "feature: <option>" label by .github/workflows/label-feature.yml
+  # Dropdown values are applied as labels by .github/workflows/label-from-form.yml
   - type: dropdown
     id: feature
     attributes:
@@ -31,6 +31,7 @@ body:
         - Home & navigation
         - Account & organization
         - Documentation
+        - Infrastructure
         - Other / not sure
     validations:
       required: true
@@ -65,14 +66,6 @@ body:
     validations:
       required: true
 
-  - type: textarea
-    id: actual
-    attributes:
-      label: Actual behavior
-      description: What actually happened?
-    validations:
-      required: true
-
   - type: dropdown
     id: phase
     attributes:
@@ -81,6 +74,7 @@ body:
       options:
         - Beta testing
         - Go-live operations
+        - Production
         - Other
     validations:
       required: true

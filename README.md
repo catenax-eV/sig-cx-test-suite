@@ -1,6 +1,6 @@
 # Special Interest Group (SIG) Catena-X Test Suite
 
-Central place to report **bugs** and request **features** for the **Catena-X Test Suite** during its beta testing phase and go-live operations.
+Central place to report **bugs**, request **features** and ask **questions** for the **Catena-X Test Suite** during its beta testing phase and go-live operations.
 
 This repository contains no source code. It is the public feedback channel between Test Suite users and the team that builds and operates it.
 
@@ -9,7 +9,9 @@ This repository contains no source code. It is the public feedback channel betwe
 - [How to report an issue](#how-to-report-an-issue)
   - [🐞 Report a bug](#-report-a-bug)
   - [✨ Request a feature](#-request-a-feature)
+  - [❓ Ask a question](#-ask-a-question)
   - [Adding screenshots](#adding-screenshots)
+- [Labels](#labels)
 - [What happens after you open an issue](#what-happens-after-you-open-an-issue)
 - [Guidelines](#guidelines)
 - [Maintainers](#maintainers)
@@ -42,7 +44,7 @@ You will be asked for:
 | Logs or payloads | | Pasted as text, shown as a code block |
 | Screenshots | | Images showing the problem |
 
-Bug reports get the issue type **Bug**, the `bug` label and a `feature: <name>` label for the selected feature.
+Bug reports get the issue type **Bug**, the `bug` label and [labels](#labels) for the selected feature, phase, severity and environment.
 
 ### ✨ Request a feature
 
@@ -60,7 +62,23 @@ You will be asked for:
 | Alternatives considered | | Workarounds or other options you thought about |
 | Screenshots or mockups | | Images that illustrate the idea |
 
-Feature requests get the issue type **Feature**, the `enhancement` label and a `feature: <name>` label for the selected feature.
+Feature requests get the issue type **Feature**, the `enhancement` label and [labels](#labels) for the selected feature, area and priority.
+
+### ❓ Ask a question
+
+Use the [**Question**](https://github.com/catenax-eV/sig-cx-test-suite/issues/new?template=question.yml) template if you are not sure how something works or need help using the Test Suite. If something is broken, please report a bug instead.
+
+You will be asked for:
+
+| Field | Required | Description |
+|---|:---:|---|
+| Related feature | ✅ | The part of the Test Suite your question is about |
+| Your question | ✅ | What you would like to know |
+| Context | | What you are trying to achieve and what you already tried |
+| Environment | | `PROD`, `DEV` or `Not environment specific` |
+| Screenshots | | Images that help explain the question |
+
+Questions get the `question` label and [labels](#labels) for the selected feature and environment.
 
 ### Adding screenshots
 
@@ -71,6 +89,21 @@ The **Screenshots** fields accept images. You can:
 - click the attach area at the bottom of the field to choose a file.
 
 You can write text between images to explain what each one shows.
+
+## Labels
+
+Your answers in the dropdowns are turned into labels automatically, so issues can be filtered easily:
+
+| Label | Set from | Example |
+|---|---|---|
+| `feature: <name>` | Affected / Related feature | `feature: TCK Executions` |
+| `severity: <level>` | Severity (bugs) | `severity: Critical` |
+| `priority: <level>` | Priority (feature requests) | `priority: High` |
+| `env: <environment>` | Environment | `env: PROD` |
+| `phase: <phase>` | Phase (bugs) | `phase: Beta testing` |
+| `area: <area>` | Area (feature requests) | `area: New test case` |
+
+If you edit the issue and change a dropdown, the labels are updated. Answers like `Other` or `Other / not sure` do not add a label.
 
 ## What happens after you open an issue
 

@@ -21,7 +21,9 @@ jobs:
               ? 'bug report'
               : labels.includes('enhancement')
                 ? 'feature request'
-                : 'issue';
+                : labels.includes('question')
+                  ? 'question'
+                  : 'issue';
 
             const body = [
               `Hi @${issue.user.login}, thank you for this ${kind}! 🙏`,
