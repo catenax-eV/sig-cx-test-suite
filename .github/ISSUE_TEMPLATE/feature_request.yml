@@ -4,6 +4,8 @@ title: "[Feature]: "
 labels: ["enhancement", "triage"]
 assignees:
   - matbmoser
+  - MonikaJacobsen
+  - axkluge
 body:
   - type: markdown
     attributes:
