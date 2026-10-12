@@ -86,9 +86,18 @@ body:
   - type: textarea
     id: logs
     attributes:
-      label: Logs, payloads or screenshots
+      label: Logs or payloads
       description: Paste relevant logs or payloads. They will be formatted as code automatically. **Remove any secrets or credentials!**
       render: shell
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: |
+        Upload screenshots by dragging & dropping, pasting from the clipboard, or clicking the attach button at the bottom of this field.
+        You can add text between images to explain what each one shows. **Make sure no sensitive data is visible!**
+      placeholder: Drag & drop or paste images here, and describe what they show.
 
   - type: textarea
     id: additional

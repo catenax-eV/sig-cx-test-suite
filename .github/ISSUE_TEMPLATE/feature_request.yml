@@ -62,10 +62,19 @@ body:
       required: true
 
   - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or mockups
+      description: |
+        Upload screenshots or mockups by dragging & dropping, pasting from the clipboard, or clicking the attach button at the bottom of this field.
+        You can add text between images to explain what each one shows.
+      placeholder: Drag & drop or paste images here, and describe what they show.
+
+  - type: textarea
     id: additional
     attributes:
       label: Additional context
-      description: Add any other context, mockups or references (e.g. standards, specs) here.
+      description: Add any other context or references (e.g. standards, specs) here. Images can be attached here too.
 
   - type: checkboxes
     id: checks
