@@ -1,0 +1,105 @@
+name: 🐞 Bug Report
+description: Report a problem found in the CX Test Suite (go-live operations or beta testing).
+title: "[Bug]: "
+labels: ["bug", "triage"]
+assignees:
+  - matbmoser
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug in the CX Test Suite!
+        Please fill in as much detail as possible so we can reproduce and fix the issue quickly.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug description
+      description: A clear and concise description of what the bug is.
+      placeholder: When I run the ... test case, the suite reports ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: How can we reproduce the problem?
+      placeholder: |
+        1. Go to '...'
+        2. Run test '...'
+        3. Use input / payload '...'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What actually happened?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: phase
+    attributes:
+      label: Phase
+      description: In which phase did you encounter the bug?
+      options:
+        - Beta testing
+        - Go-live operations
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How strongly does this bug affect you?
+      options:
+        - Critical (blocker, no workaround)
+        - High (major functionality affected)
+        - Medium (workaround available)
+        - Low (minor / cosmetic)
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Test Suite version / environment
+      description: Version, release or environment (e.g. INT, PRE-PROD, PROD) where the bug occurred.
+      placeholder: e.g. v1.2.0 on INT
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs, payloads or screenshots
+      description: Paste relevant logs or payloads. They will be formatted as code automatically. **Remove any secrets or credentials!**
+      render: shell
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Anything else that may help us understand the problem.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched the existing issues and this bug has not been reported yet.
+          required: true
+        - label: I removed all sensitive data (tokens, credentials, personal data) from this report.
+          required: true

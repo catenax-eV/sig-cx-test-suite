@@ -1,0 +1,41 @@
+name: Notify maintainer
+
+on:
+  issues:
+    types: [opened]
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  issues: write
+  pull-requests: write
+
+env:
+  MAINTAINER: matbmoser
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign and mention maintainer
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const maintainer = process.env.MAINTAINER;
+            const item = context.payload.issue || context.payload.pull_request;
+            const number = item.number;
+            const kind = context.payload.issue ? 'issue' : 'pull request';
+
+            // Assign the maintainer (no-op if already assigned via the template)
+            await github.rest.issues.addAssignees({
+              ...context.repo,
+              issue_number: number,
+              assignees: [maintainer],
+            });
+
+            // Mention the maintainer so they get notified
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: number,
+              body: `👋 @${maintainer}, a new ${kind} was opened by @${item.user.login}. Please take a look.`,
+            });
