@@ -1,0 +1,88 @@
+name: ✨ Feature Request
+description: Suggest a new feature or improvement for the CX Test Suite.
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+assignees:
+  - matbmoser
+  - MonikaJacobsen
+  - axkluge
+  - stephanbcbauer
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping us improve the CX Test Suite!
+        Please describe your idea and the problem it solves.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: Is your feature request related to a problem? Please describe it.
+      placeholder: I'm always frustrated when ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: A clear and concise description of what you want to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any alternative solutions or workarounds you have considered.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Which part of the Test Suite does this relate to?
+      options:
+        - New test case
+        - Existing test case
+        - Reporting / results
+        - Usability / UI
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How important is this feature for you?
+      options:
+        - High (blocks adoption / go-live)
+        - Medium (important improvement)
+        - Low (nice to have)
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or mockups
+      description: |
+        Upload screenshots or mockups by dragging & dropping, pasting from the clipboard, or clicking the attach button at the bottom of this field.
+        You can add text between images to explain what each one shows.
+      placeholder: Drag & drop or paste images here, and describe what they show.
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Add any other context or references (e.g. standards, specs) here. Images can be attached here too.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched the existing issues and this feature has not been requested yet.
+          required: true

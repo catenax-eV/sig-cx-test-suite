@@ -1,0 +1,39 @@
+name: Welcome new issues
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  welcome:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Thank the reporter
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const labels = issue.labels.map((l) => l.name);
+            const kind = labels.includes('bug')
+              ? 'bug report'
+              : labels.includes('enhancement')
+                ? 'feature request'
+                : 'issue';
+
+            const body = [
+              `Hi @${issue.user.login}, thank you for this ${kind}! 🙏`,
+              '',
+              'Your feedback helps us make the CX Test Suite better for everyone.',
+              'The team has been notified and will review it as soon as possible. We will get back to you here with updates or follow-up questions.',
+              '',
+              'In the meantime, please make sure the issue contains all the details we need (steps to reproduce, environment, screenshots) and that no sensitive data is included.',
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: issue.number,
+              body,
+            });
